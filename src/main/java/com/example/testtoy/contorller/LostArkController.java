@@ -35,6 +35,13 @@ import java.util.Map;
             // 데이터 처리 후 응답
             return ResponseEntity.ok("Character: " + characterName + " Data: " + inputData);
         }
+
+    @GetMapping("/characters/test")
+    public String test() {
+        String result = lostArkApiService.test();
+        System.out.println("Character Name: " +result);
+        return result;
+    }
     }
 
 
