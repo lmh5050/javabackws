@@ -27,22 +27,23 @@ import java.util.Map;
         }
 
         @PostMapping("/characters/{characterName}")
-        public ResponseEntity<String> updateCharacterInfo(@PathVariable String characterName, @RequestBody Map<String, String> requestData) {
+        public List<CharacterInfoDto> updateCharacterInfo(@PathVariable String characterName, @RequestBody Map<String, String> requestData) {
             String inputData = requestData.get("data");
             System.out.println("Character Name: " + characterName);
             System.out.println("Received Data: " + inputData);
 
             // 데이터 처리 후 응답
-            return ResponseEntity.ok("Character: " + characterName + " Data: " + inputData);
+            return lostArkApiService.getCharacterInfoList(inputData);
         }
 
-    @GetMapping("/characters/test")
-    public String test() {
-        String result = lostArkApiService.test();
-        System.out.println("Character Name: " +result);
-        return result;
-    }
-    }
+        @GetMapping("/characters/test")
+        public String test() {
+            String result = lostArkApiService.test();
+            System.out.println("Character Name: " +result);
+            return result;
+        }
+
+}
 
 
 

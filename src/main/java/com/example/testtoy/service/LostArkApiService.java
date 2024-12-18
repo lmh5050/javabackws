@@ -53,6 +53,7 @@ public class LostArkApiService {
                     return Double.compare(maxLevel2, maxLevel1);  // 내림차순 정렬
                 })
                 .collect(Collectors.toList());  // 다시 List로 변환
+        System.out.println(sortedCharacterInfo);
         return sortedCharacterInfo ;
     }
 
