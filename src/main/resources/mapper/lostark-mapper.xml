@@ -4,6 +4,7 @@
     <select id="getRaidData" resultType="com.example.testtoy.dto.RaidDataDto">
         SELECT *
         FROM public.raid
+        ORDER BY raid_level
     </select>
 
     <insert id="insertRaidData" parameterType="com.example.testtoy.dto.RaidDataDto">
@@ -13,8 +14,6 @@
             gold2,
             gold3,
             reward1,
-            reward2,
-            reward3,
             plus1,
             plus2,
             plus3
@@ -36,14 +35,6 @@
                     <choose>
                         <when test="reward1 == null or reward1 == ''">NULL</when>
                         <otherwise>#{reward1}</otherwise>
-                    </choose>,
-                    <choose>
-                        <when test="reward2 == null or reward2 == ''">NULL</when>
-                        <otherwise>#{reward2}</otherwise>
-                    </choose>,
-                    <choose>
-                        <when test="reward3 == null or reward3 == ''">NULL</when>
-                        <otherwise>#{reward3}</otherwise>
                     </choose>,
                     <choose>
                         <when test="plus1 == null or plus1 == ''">NULL</when>

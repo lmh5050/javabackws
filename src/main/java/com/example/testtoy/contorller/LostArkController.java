@@ -21,12 +21,12 @@ import java.util.Map;
             this.lostArkApiService = lostArkApiService;
         }
 
-        @GetMapping("/characters/{characterName}")
-        public List<CharacterInfoDto> getCharacterInfo(@PathVariable String characterName) {
-            return lostArkApiService.getCharacterInfoList(characterName);
+        @GetMapping("/characters/{id}") // 로그인시 아이디로 파라미터 보내주고 그 파라미터 맞는 값 조회하는 api + 지금은 api통신인데 추후에 db에서 불러오는 형식으로 변경
+        public List<CharacterInfoDto> getCharacterInfo(@PathVariable String id) {
+            return lostArkApiService.getCharacterInfoList(id);
         }
 
-        @PostMapping("/characters/{characterName}")
+        @PostMapping("/characters/{characterName}") // 인풋창에서 등록 눌리면 데이터 db에 등록되는 api
         public List<CharacterInfoDto> updateCharacterInfo(@PathVariable String characterName, @RequestBody Map<String, String> requestData) {
             String inputData = requestData.get("data");
             System.out.println("Character Name: " + characterName);
@@ -41,7 +41,7 @@ import java.util.Map;
             return raidDataResult;
         }
 
-        @PostMapping("/characters/raid") //레이드 종류 나타내는 api
+        @PostMapping("/characters/raid") //레이드 등록 버튼 클릭시 레이드 등록되는 api
         public int insertRaidData(@RequestBody RaidDataDto requestData) {
             // 받은 데이터를 서비스로 전달하거나 DB에 저장
             int raidDataResult = lostArkApiService.insertRaidData(requestData);

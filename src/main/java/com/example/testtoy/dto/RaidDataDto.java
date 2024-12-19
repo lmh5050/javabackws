@@ -20,12 +20,6 @@ public class RaidDataDto {
     @JsonProperty("reward1")
     private String reward1;
 
-    @JsonProperty("reward2")
-    private String reward2;
-
-    @JsonProperty("reward3")
-    private String reward3;
-
     @JsonProperty("plus1")
     private String plus1;
 
@@ -34,4 +28,6 @@ public class RaidDataDto {
 
     @JsonProperty("plus3")
     private String plus3;
+
+    private String raidLevel;
 }
