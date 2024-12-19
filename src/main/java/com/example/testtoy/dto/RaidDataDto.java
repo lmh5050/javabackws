@@ -9,13 +9,13 @@ public class RaidDataDto {
     private String raidName;
 
     @JsonProperty("gold1")
-    private int gold1;
+    private String gold1;  // String으로 변경하거나, 숫자 변환 로직 추가
 
     @JsonProperty("gold2")
-    private int gold2;
+    private String gold2;  // String으로 변경
 
     @JsonProperty("gold3")
-    private int gold3;
+    private String gold3;  // String으로 변경
 
     @JsonProperty("reward1")
     private String reward1;

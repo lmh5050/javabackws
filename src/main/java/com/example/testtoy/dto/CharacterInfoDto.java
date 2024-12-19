@@ -11,15 +11,17 @@ public class CharacterInfoDto {
     @JsonProperty("CharacterName")
     private String characterName;
 
-    @JsonProperty("CharacterLevel")
-    private int characterLevel;
-
     @JsonProperty("CharacterClassName")
     private String characterClassName;
 
-    @JsonProperty("ItemAvgLevel")
-    private String itemAvgLevel;
-
     @JsonProperty("ItemMaxLevel")
     private String itemMaxLevel;
+
+    private String classType;
+    private String representCharacterName;
+
+    public void setRepresentCharacterName(String representCharacterName) {
+        this.representCharacterName = representCharacterName;
+    }
+
 }

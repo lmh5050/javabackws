@@ -32,34 +32,111 @@ public class LostArkApiService {
     // 캐릭터 정보 가져오기
     public List<CharacterInfoDto> getCharacterInfoList(String characterName) {
         List<CharacterInfoDto> characterInfo = webClient.get()
-                                                        .uri("/characters/" + characterName + "/siblings")
-                                                        .retrieve()
-                                                        .bodyToFlux(CharacterInfoDto.class)  // 응답을 DTO 리스트로 변환
-                                                        .filter(character -> {
-                                                            // ITEMMAXLEVEL의 쉼표 제거 후 숫자로 변환하여 비교
-                                                            String itemMaxLevel = character.getItemMaxLevel().replace(",", "");
-                                                            try {
-                                                                return Double.parseDouble(itemMaxLevel) >= 1600;
-                                                            } catch (NumberFormatException e) {
-                                                                // 숫자 변환 오류 발생 시 제외
-                                                                return false;
-                                                            }
-                                                        })
-                                                        .collectList()  // Flux를 List로 변환
-                                                        .block(); // 동기식으로 결과 반환
+                .uri("/characters/" + characterName + "/siblings")
+                .retrieve()
+                .bodyToFlux(CharacterInfoDto.class)  // 응답을 DTO 리스트로 변환
+                .filter(character -> {
+                    // ITEMMAXLEVEL의 쉼표 제거 후 숫자로 변환하여 비교
+                    String itemMaxLevel = character.getItemMaxLevel().replace(",", "");
+                    try {
+                        return Double.parseDouble(itemMaxLevel) >= 1600;
+                    } catch (NumberFormatException e) {
+                        // 숫자 변환 오류 발생 시 제외
+                        return false;
+                    }
+                })
+                .collectList()  // Flux를 List로 변환
+                .block(); // 동기식으로 결과 반환
+
         List<CharacterInfoDto> sortedCharacterInfo = characterInfo.stream()
+                .peek(character -> {
+                    // classType을 설정
+                    if (character.getCharacterClassName() != null) {
+                        switch (character.getCharacterClassName()) {
+                            case "도화가":
+                            case "홀리나이트":
+                            case "바드":
+                                character.setClassType("서폿");
+                                break;
+                            default:
+                                character.setClassType("딜러");
+                                break;
+                        }
+                    }
+                })
                 .sorted((c1, c2) -> {
                     double maxLevel1 = Double.parseDouble(c1.getItemMaxLevel().replace(",", ""));
                     double maxLevel2 = Double.parseDouble(c2.getItemMaxLevel().replace(",", ""));
                     return Double.compare(maxLevel2, maxLevel1);  // 내림차순 정렬
                 })
                 .collect(Collectors.toList());  // 다시 List로 변환
+
         System.out.println(sortedCharacterInfo);
-        return sortedCharacterInfo ;
+        return sortedCharacterInfo;
     }
 
+    public List<CharacterInfoDto> updateCharacterInfoList(String characterName) {
+        List<CharacterInfoDto> characterInfo = webClient.get()
+                .uri("/characters/" + characterName + "/siblings")
+                .retrieve()
+                .bodyToFlux(CharacterInfoDto.class)
+                .filter(character -> {
+                    // ITEMMAXLEVEL의 쉼표 제거 후 숫자로 변환하여 비교
+                    String itemMaxLevel = character.getItemMaxLevel().replace(",", "");
+                    try {
+                        return Double.parseDouble(itemMaxLevel) >= 1600;
+                    } catch (NumberFormatException e) {
+                        // 숫자 변환 오류 발생 시 제외
+                        return false;
+                    }
+                })
+                .collectList()
+                .block();
+
+        List<CharacterInfoDto> sortedCharacterInfo = characterInfo.stream()
+                .peek(character -> {
+                    // classType을 설정
+                    if (character.getCharacterClassName() != null) {
+                        switch (character.getCharacterClassName()) {
+                            case "도화가":
+                            case "홀리나이트":
+                            case "바드":
+                                character.setClassType("서폿");
+                                break;
+                            default:
+                                character.setClassType("딜러");
+                                break;
+                        }
+                    }
+                })
+                .sorted((c1, c2) -> {
+                    double maxLevel1 = Double.parseDouble(c1.getItemMaxLevel().replace(",", ""));
+                    double maxLevel2 = Double.parseDouble(c2.getItemMaxLevel().replace(",", ""));
+                    return Double.compare(maxLevel2, maxLevel1);  // 내림차순 정렬
+                })
+                .collect(Collectors.toList());
+
+        // 제일 높은 레벨의 캐릭터 이름을 추출
+        if (!sortedCharacterInfo.isEmpty()) {
+            String representativeCharacterName = sortedCharacterInfo.get(0).getCharacterName();
+
+            // 모든 캐릭터의 대표 캐릭터명에 첫 번째 캐릭터 이름을 설정
+            sortedCharacterInfo.forEach(character -> character.setRepresentCharacterName(representativeCharacterName));
+        }
+
+        System.out.println(sortedCharacterInfo);
+        LostarkRepository.insertCharacterData(sortedCharacterInfo);
+        return sortedCharacterInfo;
+    }
+
+
+
+
     public List<RaidDataDto> getRaidData() {
-        List<RaidDataDto> raidDataResult = LostarkRepository.getRaidData();
-        return raidDataResult;
+        return LostarkRepository.getRaidData();
+    }
+
+    public int insertRaidData(RaidDataDto requestData) {
+        return LostarkRepository.insertRaidData(requestData);
     }
 }

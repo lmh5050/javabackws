@@ -5,4 +5,83 @@
         SELECT *
         FROM public.raid
     </select>
+
+    <insert id="insertRaidData" parameterType="com.example.testtoy.dto.RaidDataDto">
+        INSERT INTO raid (
+            raid_name,
+            gold1,
+            gold2,
+            gold3,
+            reward1,
+            reward2,
+            reward3,
+            plus1,
+            plus2,
+            plus3
+        )
+        VALUES (
+                   #{raidName},
+                    <choose>
+                        <when test="gold1 == null or gold1 == ''">NULL</when>
+                        <otherwise>CAST(#{gold1} as INTEGER)</otherwise>
+                    </choose>,
+                    <choose>
+                        <when test="gold2 == null or gold2 == ''">NULL</when>
+                        <otherwise>CAST(#{gold2} as INTEGER)</otherwise>
+                    </choose>,
+                    <choose>
+                        <when test="gold3 == null or gold3 == ''">NULL</when>
+                        <otherwise>CAST(#{gold3} as INTEGER)</otherwise>
+                    </choose>,
+                    <choose>
+                        <when test="reward1 == null or reward1 == ''">NULL</when>
+                        <otherwise>#{reward1}</otherwise>
+                    </choose>,
+                    <choose>
+                        <when test="reward2 == null or reward2 == ''">NULL</when>
+                        <otherwise>#{reward2}</otherwise>
+                    </choose>,
+                    <choose>
+                        <when test="reward3 == null or reward3 == ''">NULL</when>
+                        <otherwise>#{reward3}</otherwise>
+                    </choose>,
+                    <choose>
+                        <when test="plus1 == null or plus1 == ''">NULL</when>
+                        <otherwise>#{plus1}</otherwise>
+                    </choose>,
+                    <choose>
+                        <when test="plus2 == null or plus2 == ''">NULL</when>
+                        <otherwise>#{plus2}</otherwise>
+                    </choose>,
+                    <choose>
+                        <when test="plus3 == null or plus3 == ''">NULL</when>
+                        <otherwise>#{plus3}</otherwise>
+                    </choose>
+               )
+    </insert>
+
+    <insert id="insertCharacterData" parameterType="list">
+        INSERT INTO character (
+        server_name,
+        id,
+        character_name_represent,
+        character_name,
+        class_name,
+        item_max_level,
+        class_type
+        )
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            (
+            #{item.serverName},
+            '추가예정',
+            #{item.representCharacterName},
+            #{item.characterName},
+            #{item.characterClassName},
+            #{item.itemMaxLevel},
+            #{item.classType}
+            )
+        </foreach>
+    </insert>
+
 </mapper>
