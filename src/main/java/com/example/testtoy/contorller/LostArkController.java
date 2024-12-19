@@ -1,6 +1,7 @@
 package com.example.testtoy.contorller;
 
 import com.example.testtoy.dto.CharacterInfoDto;
+import com.example.testtoy.dto.RaidDataDto;
 import com.example.testtoy.service.LostArkApiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -36,11 +37,10 @@ import java.util.Map;
             return lostArkApiService.getCharacterInfoList(inputData);
         }
 
-        @GetMapping("/characters/test")
-        public String test() {
-            String result = lostArkApiService.test();
-            System.out.println("Character Name: " +result);
-            return result;
+        @GetMapping("/characters/raid")
+        public List<RaidDataDto> getRaidData() {
+            List<RaidDataDto> raidDataResult = lostArkApiService.getRaidData();
+            return raidDataResult;
         }
 
 }

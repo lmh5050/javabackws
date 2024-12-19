@@ -1,5 +1,6 @@
 package com.example.testtoy.service;
 
+import com.example.testtoy.dto.RaidDataDto;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -57,8 +58,8 @@ public class LostArkApiService {
         return sortedCharacterInfo ;
     }
 
-    public String test() {
-        String result = LostarkRepository.test();
-        return result;
+    public List<RaidDataDto> getRaidData() {
+        List<RaidDataDto> raidDataResult = LostarkRepository.getRaidData();
+        return raidDataResult;
     }
 }
