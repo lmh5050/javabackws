@@ -19,8 +19,14 @@ repositories {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'com.fasterxml.jackson.core:jackson-databind'
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
     implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.2'
+    implementation 'org.projectlombok:lombok:1.18.24'  // Lombok 의존성 추가
+    runtimeOnly 'org.xerial:sqlite-jdbc:3.45.1.0' // 최신 버전 확인
+    annotationProcessor 'org.projectlombok:lombok:1.18.24'  // Lombok 어노테이션 처리기 추가
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'io.projectreactor:reactor-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
