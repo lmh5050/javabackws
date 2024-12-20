@@ -129,9 +129,6 @@ public class LostArkApiService {
         return sortedCharacterInfo;
     }
 
-
-
-
     public List<RaidDataDto> getRaidData() {
         return LostarkRepository.getRaidData();
     }
