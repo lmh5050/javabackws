@@ -11,6 +11,7 @@ public interface LostarkRepository {
     List<RaidDataDto> getRaidData();
 
     int  insertRaidData(RaidDataDto raidInfo);
+    void deleteRaidData(String raidName);
     void insertCharacterData(List<CharacterInfoDto> sortedData);
 }
 

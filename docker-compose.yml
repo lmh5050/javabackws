@@ -1,0 +1,31 @@
+version: '3'
+services:
+  spring-backend:
+    image: testtoy  # 로컬에서 빌드한 이미지 이름
+    build: .
+    ports:
+      - "8081:8081"  # 호스트와 컨테이너의 포트 매핑
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod  # Spring 프로파일 설정
+    depends_on:
+      - db  # db 서비스가 먼저 실행되어야 함
+    networks:
+      - app-network
+
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: awdx4862!@
+      POSTGRES_DB: postgres
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  db-data:

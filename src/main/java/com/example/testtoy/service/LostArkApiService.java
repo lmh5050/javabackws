@@ -136,4 +136,8 @@ public class LostArkApiService {
     public int insertRaidData(RaidDataDto requestData) {
         return LostarkRepository.insertRaidData(requestData);
     }
+
+    public void deleteRaidData(String raidName) {
+        LostarkRepository.deleteRaidData(raidName);
+    }
 }

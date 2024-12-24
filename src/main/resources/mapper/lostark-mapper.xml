@@ -75,4 +75,9 @@
         </foreach>
     </insert>
 
+    <delete id="deleteRaidData" parameterType="String">
+        DELETE FROM public.raid
+        WHERE raid_name = #{raidName};
+    </delete>
+
 </mapper>
