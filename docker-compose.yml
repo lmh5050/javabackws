@@ -1,12 +1,15 @@
 version: '3'
 services:
   spring-backend:
-    image: testtoy  # 로컬에서 빌드한 이미지 이름
+    image: sebrinu/testtoy  # 로컬에서 빌드한 이미지 이름
     build: .
     ports:
-      - "8081:8081"  # 호스트와 컨테이너의 포트 매핑
+      - "8081:8080"  # 호스트와 컨테이너의 포트 매핑
     environment:
       - SPRING_PROFILES_ACTIVE=prod  # Spring 프로파일 설정
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://34.47.90.90:5432/postgres  # GCP VM의 PostgreSQL DB 연결
+      - SPRING_DATASOURCE_USERNAME=postgres  # DB 사용자명
+      - SPRING_DATASOURCE_PASSWORD=awdx4862!@  # DB 비밀번호
     depends_on:
       - db  # db 서비스가 먼저 실행되어야 함
     networks:
@@ -29,3 +32,4 @@ networks:
 
 volumes:
   db-data:
+    driver: local
