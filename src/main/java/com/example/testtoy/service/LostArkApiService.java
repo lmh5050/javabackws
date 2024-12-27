@@ -1,5 +1,6 @@
 package com.example.testtoy.service;
 import com.example.testtoy.dto.RaidDataDto;
+import com.example.testtoy.dto.RaidMatchDto;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -24,7 +25,7 @@ public class LostArkApiService {
                 .defaultHeader(HttpHeaders.AUTHORIZATION, "bearer " + apiKey) // API 키 추가
                 .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .build();
-        LostarkRepository = lostarkRepository1;
+        LostarkRepository = lostarkRepository;
     }
 
     // 캐릭터 정보 가져오기
@@ -73,6 +74,7 @@ public class LostArkApiService {
         return sortedCharacterInfo;
     }
 
+    //캐릭터 정보 업데이트 하는 메소드 => (리턴값이 있는 이유 > 그냥 보여주기 위함)
     public List<CharacterInfoDto> updateCharacterInfoList(String characterName) {
         List<CharacterInfoDto> characterInfo = webClient.get()
                 .uri("/characters/" + characterName + "/siblings")
@@ -127,15 +129,23 @@ public class LostArkApiService {
         return sortedCharacterInfo;
     }
 
+    //레이드 데이터 단순히 조회하는 메소드
     public List<RaidDataDto> getRaidData() {
         return LostarkRepository.getRaidData();
     }
 
+    //레이드 데이터 DB에 insert 하는 메소드
     public int insertRaidData(RaidDataDto requestData) {
         return LostarkRepository.insertRaidData(requestData);
     }
 
+    //레이드 데이터 delete 하는 메소드
     public void deleteRaidData(String raidName) {
         LostarkRepository.deleteRaidData(raidName);
+    }
+
+    //레이드 매칭정보 불러오는 메소드
+    public List<RaidMatchDto> getRaidMatchInfo() {
+        return LostarkRepository.getRaidMatchInfo();
     }
 }

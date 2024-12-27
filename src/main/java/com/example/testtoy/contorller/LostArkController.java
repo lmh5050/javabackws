@@ -2,6 +2,7 @@ package com.example.testtoy.contorller;
 
 import com.example.testtoy.dto.CharacterInfoDto;
 import com.example.testtoy.dto.RaidDataDto;
+import com.example.testtoy.dto.RaidMatchDto;
 import com.example.testtoy.service.LostArkApiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -49,7 +50,7 @@ import java.util.Map;
         return raidDataResult;
     }
 
-    @DeleteMapping("/characters/raid/{raidName}")
+    @DeleteMapping("/characters/raid/{raidName}") //레이드 테이블에서 값 삭제하는 api
     public int deleteRaidData(@PathVariable String raidName, @RequestBody Map<String, String> requestData) {
         String inputData = requestData.get("data");
         System.out.println("Raid Name: " + raidName);
@@ -57,6 +58,13 @@ import java.util.Map;
         lostArkApiService.deleteRaidData(inputData);  // 실제 레이드 데이터 삭제 로직
         return 0;  // 성공적인 삭제 후 반환
     }
+
+    @GetMapping("/characters/raidMatch") //레이드 테이블에서 값 삭제하는 api
+    public List<RaidMatchDto> getRaidMatchInfo() {
+        return lostArkApiService.getRaidMatchInfo();
+    }
+
+
 
 }
 

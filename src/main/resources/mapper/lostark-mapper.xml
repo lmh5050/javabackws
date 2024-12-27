@@ -80,4 +80,10 @@
         WHERE raid_name = #{raidName};
     </delete>
 
+    <select id="getRaidMatchInfo" resultType="com.example.testtoy.dto.RaidMatchDto">
+        SELECT *
+        FROM public.character_raid
+        ORDER BY time
+    </select>
+
 </mapper>
