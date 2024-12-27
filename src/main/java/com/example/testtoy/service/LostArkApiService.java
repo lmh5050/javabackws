@@ -1,5 +1,4 @@
 package com.example.testtoy.service;
-
 import com.example.testtoy.dto.RaidDataDto;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
@@ -8,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import com.example.testtoy.dto.CharacterInfoDto;
 import com.example.testtoy.repository.LostarkRepository;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,13 +18,13 @@ public class LostArkApiService {
     private final LostarkRepository LostarkRepository;
 
     // API 키 설정 (application.properties에서 설정)
-    public LostArkApiService(@Value("${lostark.api.key}") String apiKey, com.example.testtoy.repository.LostarkRepository lostarkRepository) {
+    public LostArkApiService(@Value("${lostark.api.key}") String apiKey, com.example.testtoy.repository.LostarkRepository lostarkRepository, com.example.testtoy.repository.LostarkRepository lostarkRepository1) {
         this.webClient = WebClient.builder()
                 .baseUrl("https://developer-lostark.game.onstove.com")
                 .defaultHeader(HttpHeaders.AUTHORIZATION, "bearer " + apiKey) // API 키 추가
                 .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .build();
-        LostarkRepository = lostarkRepository;
+        LostarkRepository = lostarkRepository1;
     }
 
     // 캐릭터 정보 가져오기
