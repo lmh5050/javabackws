@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.reactive.function.client.WebClient;
 import com.example.testtoy.dto.CharacterInfoDto;
 import com.example.testtoy.repository.LostarkRepository;
@@ -147,5 +148,14 @@ public class LostArkApiService {
     //레이드 매칭정보 불러오는 메소드
     public List<RaidMatchDto> getRaidMatchInfo() {
         return LostarkRepository.getRaidMatchInfo();
+    }
+
+    @Transactional//레이드 데이터 DB에 insert 하는 메소드
+    public void insertRaidMatchInfo(RaidMatchDto requestData) {
+        LostarkRepository.insertRaidMatchInfo(requestData); // 데이터를 인서트 하는 코드
+        RaidMatchDto selectedData = LostarkRepository.selectRaidMatchInfo(requestData);
+        System.out.println(selectedData);// 넣은 데이터를 다시 no값 까지 가져와서
+        LostarkRepository.insertRaidMatchCharacterInfo(selectedData); // 가져온 데이터를 다시 다른 테이블에 넣어주는 구조
+
     }
 }

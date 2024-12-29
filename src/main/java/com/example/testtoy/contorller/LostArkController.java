@@ -59,9 +59,15 @@ import java.util.Map;
         return 0;  // 성공적인 삭제 후 반환
     }
 
-    @GetMapping("/characters/raidMatch") //레이드 테이블에서 값 삭제하는 api
+    @GetMapping("/characters/raidMatch") //레이드 테이블에서 값 불러오는 api
     public List<RaidMatchDto> getRaidMatchInfo() {
         return lostArkApiService.getRaidMatchInfo();
+    }
+
+    @PostMapping("/characters/raidMatch")
+    public int insertRaidMatch(@RequestBody RaidMatchDto requestData) {
+        lostArkApiService.insertRaidMatchInfo(requestData);
+        return 0;
     }
 
 

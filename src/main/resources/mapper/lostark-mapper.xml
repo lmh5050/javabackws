@@ -86,4 +86,37 @@
         ORDER BY time
     </select>
 
+    <select id="selectRaidMatchInfo" parameterType="com.example.testtoy.dto.RaidMatchDto" resultType="com.example.testtoy.dto.RaidMatchDto">
+        SELECT *
+        FROM public.character_raid
+        WHERE raid_name = #{raidName}
+        and character_name = #{characterName}
+        ORDER BY time
+    </select>
+
+    <insert id="insertRaidMatchInfo" parameterType="com.example.testtoy.dto.RaidMatchDto">
+        INSERT INTO character_raid (
+            raid_name,
+            character_name,
+            time,
+            text
+        )
+        VALUES (
+                   #{raidName},
+                   #{characterName},
+                   #{time},
+                   #{text})
+    </insert>
+
+    <insert id="insertRaidMatchCharacterInfo" parameterType="com.example.testtoy.dto.RaidMatchDto">
+        INSERT INTO postgres.public.character_raid_detail (
+            no,
+            character_name
+        )
+        VALUES (
+                   #{no},
+                   #{characterName}
+               )
+    </insert>
+
 </mapper>
