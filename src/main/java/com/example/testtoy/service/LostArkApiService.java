@@ -31,47 +31,8 @@ public class LostArkApiService {
     }
 
     // 캐릭터 정보 가져오기
-    public List<CharacterInfoDto> getCharacterInfoList(String characterName) {
-        List<CharacterInfoDto> characterInfo = webClient.get()
-                .uri("/characters/" + characterName + "/siblings")
-                .retrieve()
-                .bodyToFlux(CharacterInfoDto.class)  // 응답을 DTO 리스트로 변환
-                .filter(character -> {
-                    // ITEMMAXLEVEL의 쉼표 제거 후 숫자로 변환하여 비교
-                    String itemMaxLevel = character.getItemMaxLevel().replace(",", "");
-                    try {
-                        return Double.parseDouble(itemMaxLevel) >= 1600;
-                    } catch (NumberFormatException e) {
-                        // 숫자 변환 오류 발생 시 제외
-                        return false;
-                    }
-                })
-                .collectList()  // Flux를 List로 변환
-                .block(); // 동기식으로 결과 반환
-
-        List<CharacterInfoDto> sortedCharacterInfo = characterInfo.stream()
-                .peek(character -> {
-                    // classType을 설정
-                    if (character.getCharacterClassName() != null) {
-                        switch (character.getCharacterClassName()) {
-                            case "도화가":
-                            case "홀리나이트":
-                            case "바드":
-                                character.setClassType("서폿");
-                                break;
-                            default:
-                                character.setClassType("딜러");
-                                break;
-                        }
-                    }
-                })
-                .sorted((c1, c2) -> {
-                    double maxLevel1 = Double.parseDouble(c1.getItemMaxLevel().replace(",", ""));
-                    double maxLevel2 = Double.parseDouble(c2.getItemMaxLevel().replace(",", ""));
-                    return Double.compare(maxLevel2, maxLevel1);  // 내림차순 정렬
-                })
-                .collect(Collectors.toList());  // 다시 List로 변환
-
+    public List<CharacterInfoDto> getCharacterInfoList(String username) {
+        List<CharacterInfoDto> sortedCharacterInfo = LostarkRepository.getCharacterInfoList(username);
         System.out.println(sortedCharacterInfo);
         return sortedCharacterInfo;
     }

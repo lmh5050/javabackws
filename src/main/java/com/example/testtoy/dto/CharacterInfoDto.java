@@ -18,10 +18,11 @@ public class CharacterInfoDto {
     private String itemMaxLevel;
 
     private String classType;
-    private String representCharacterName;
+    private String className;
+    private String characterNameRepresent;
 
     public void setRepresentCharacterName(String representCharacterName) {
-        this.representCharacterName = representCharacterName;
+        this.characterNameRepresent = representCharacterName;
     }
 
 }
