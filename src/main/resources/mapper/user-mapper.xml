@@ -13,5 +13,9 @@
         SELECT * FROM "users" WHERE username = #{username}
     </select>
 
+    <select id="findByUser" parameterType="String" resultType="com.example.testtoy.dto.UserInfoDto">
+        SELECT * FROM "users" WHERE username = #{username}
+    </select>
+
 
 </mapper>

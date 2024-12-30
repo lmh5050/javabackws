@@ -1,16 +1,16 @@
 package com.example.testtoy.service;
-import com.example.testtoy.dto.RaidDataDto;
-import com.example.testtoy.dto.RaidMatchCharacterDto;
-import com.example.testtoy.dto.RaidMatchDto;
+import com.example.testtoy.dto.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.reactive.function.client.WebClient;
-import com.example.testtoy.dto.CharacterInfoDto;
 import com.example.testtoy.repository.LostarkRepository;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 
@@ -77,9 +77,9 @@ public class LostArkApiService {
     }
 
     //캐릭터 정보 업데이트 하는 메소드 => (리턴값이 있는 이유 > 그냥 보여주기 위함)
-    public List<CharacterInfoDto> updateCharacterInfoList(String characterName) {
+    public List<CharacterInfoDto> updateCharacterInfoList(CharacterRegisterDto characterName) {
         List<CharacterInfoDto> characterInfo = webClient.get()
-                .uri("/characters/" + characterName + "/siblings")
+                .uri("/characters/" + characterName.getCharacterName() + "/siblings")
                 .retrieve()
                 .bodyToFlux(CharacterInfoDto.class)
                 .filter(character -> {
@@ -127,7 +127,13 @@ public class LostArkApiService {
         }
 
         System.out.println(sortedCharacterInfo);
-        LostarkRepository.insertCharacterData(sortedCharacterInfo);
+
+        // Map을 사용하여 username과 sortedData를 전달
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("list", sortedCharacterInfo);
+        parameters.put("username", characterName.getUsername());
+
+        LostarkRepository.insertCharacterData(parameters);
         return sortedCharacterInfo;
     }
 
@@ -164,5 +170,5 @@ public class LostArkApiService {
         List<RaidMatchCharacterDto> debugTmp = LostarkRepository.getRaidMatchCharacterInfo(raidNumber);
         return debugTmp;
     }
-    
+
 }

@@ -7,6 +7,7 @@ import com.example.testtoy.dto.RaidMatchDto;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface LostarkRepository {
@@ -14,7 +15,7 @@ public interface LostarkRepository {
 
     int  insertRaidData(RaidDataDto raidInfo); //레이드 데이터 등록
     void deleteRaidData(String raidName); //레이드 데이터 삭제
-    void insertCharacterData(List<CharacterInfoDto> sortedData); //캐릭터 정보 등록
+    void insertCharacterData(Map<String, Object> sortedData); //캐릭터 정보 등록
     List<RaidMatchDto> getRaidMatchInfo();
     void insertRaidMatchInfo(RaidMatchDto sortedData);
     RaidMatchDto selectRaidMatchInfo(RaidMatchDto sortedData);

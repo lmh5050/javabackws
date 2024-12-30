@@ -51,7 +51,7 @@
                )
     </insert>
 
-    <insert id="insertCharacterData" parameterType="list">
+    <insert id="insertCharacterData" parameterType="map">
         INSERT INTO character (
         server_name,
         id,
@@ -65,7 +65,7 @@
         <foreach collection="list" item="item" separator=",">
             (
             #{item.serverName},
-            '추가예정',
+            #{username},
             #{item.representCharacterName},
             #{item.characterName},
             #{item.characterClassName},

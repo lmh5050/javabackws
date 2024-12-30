@@ -1,9 +1,6 @@
 package com.example.testtoy.contorller;
 
-import com.example.testtoy.dto.CharacterInfoDto;
-import com.example.testtoy.dto.RaidDataDto;
-import com.example.testtoy.dto.RaidMatchCharacterDto;
-import com.example.testtoy.dto.RaidMatchDto;
+import com.example.testtoy.dto.*;
 import com.example.testtoy.service.LostArkApiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -28,13 +25,12 @@ import java.util.Map;
         return lostArkApiService.getCharacterInfoList(id);
     }
 
-    @PostMapping("/characters/{characterName}") // 인풋창에서 등록 눌리면 데이터 db에 등록되는 api
-    public List<CharacterInfoDto> updateCharacterInfo(@PathVariable String characterName, @RequestBody Map<String, String> requestData) {
-        String inputData = requestData.get("data");
-        System.out.println("Character Name: " + characterName);
-        System.out.println("Received Data: " + inputData);
+    @PostMapping("/characters") // 인풋창에서 등록 눌리면 데이터 db에 등록되는 api
+    public List<CharacterInfoDto> updateCharacterInfo(@RequestBody CharacterRegisterDto requestData) {
+        System.out.println("Received Data1: " +  requestData.getCharacterName());
+        System.out.println("Received Data2: " +  requestData.getUsername());
         // 데이터 처리 후 응답
-        return lostArkApiService.updateCharacterInfoList(inputData);
+        return lostArkApiService.updateCharacterInfoList(requestData);
     }
 
     @GetMapping("/characters/raid") //레이드 종류 나타내는 api
