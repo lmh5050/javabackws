@@ -23,7 +23,7 @@ public class MyBatisConfig {
         Resource myBatisConfig = new PathMatchingResourcePatternResolver().getResource("classpath:mybatis/mybatis-config.xml");
         sessionFactory.setConfigLocation(myBatisConfig);
 
-        sessionFactory.setTypeAliasesPackage("com.example.testtoy.dto");
+        sessionFactory.setTypeAliasesPackage("com.example.testtoy.dto, com.example.testtoy.entity");
 
         return sessionFactory.getObject();
     }
