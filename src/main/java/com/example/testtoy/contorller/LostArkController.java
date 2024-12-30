@@ -2,6 +2,7 @@ package com.example.testtoy.contorller;
 
 import com.example.testtoy.dto.CharacterInfoDto;
 import com.example.testtoy.dto.RaidDataDto;
+import com.example.testtoy.dto.RaidMatchCharacterDto;
 import com.example.testtoy.dto.RaidMatchDto;
 import com.example.testtoy.service.LostArkApiService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,14 +65,16 @@ import java.util.Map;
         return lostArkApiService.getRaidMatchInfo();
     }
 
-    @PostMapping("/characters/raidMatch")
+    @PostMapping("/characters/raidMatch") //레이드 매칭 에 데이터 등록하는 api
     public int insertRaidMatch(@RequestBody RaidMatchDto requestData) {
         lostArkApiService.insertRaidMatchInfo(requestData);
         return 0;
     }
 
-
-
+    @GetMapping("/characters/raidDetail/{raidNo}") //레이드 테이블에서 값 불러오는 api
+    public List<RaidMatchCharacterDto> getRaidMatchCharacterInfo(@PathVariable String raidNo) {
+        return lostArkApiService.getRaidMatchCharacterInfo(raidNo);
+    }
 }
 
 

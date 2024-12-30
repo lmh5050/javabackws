@@ -8,13 +8,13 @@ public class RaidMatchDto {
     private String raidName;
 
     @JsonProperty("characterName")
-    private String characterName;  // String으로 변경하거나, 숫자 변환 로직 추가
+    private String characterName;
 
     @JsonProperty("time")
-    private String time;  // String으로 변경
+    private String time;
 
     @JsonProperty("text")
-    private String text;  // String으로 변경
+    private String text;
 
     @JsonProperty("no")
     private int no;

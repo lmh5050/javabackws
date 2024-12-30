@@ -1,5 +1,6 @@
 package com.example.testtoy.service;
 import com.example.testtoy.dto.RaidDataDto;
+import com.example.testtoy.dto.RaidMatchCharacterDto;
 import com.example.testtoy.dto.RaidMatchDto;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
@@ -154,8 +155,14 @@ public class LostArkApiService {
     public void insertRaidMatchInfo(RaidMatchDto requestData) {
         LostarkRepository.insertRaidMatchInfo(requestData); // 데이터를 인서트 하는 코드
         RaidMatchDto selectedData = LostarkRepository.selectRaidMatchInfo(requestData);
-        System.out.println(selectedData);// 넣은 데이터를 다시 no값 까지 가져와서
         LostarkRepository.insertRaidMatchCharacterInfo(selectedData); // 가져온 데이터를 다시 다른 테이블에 넣어주는 구조
+    }
 
+    public List<RaidMatchCharacterDto> getRaidMatchCharacterInfo(String raidNo) {
+        int raidNumber = Integer.parseInt(raidNo);
+        System.out.println(raidNumber + "1");
+        List<RaidMatchCharacterDto> debugTmp = LostarkRepository.getRaidMatchCharacterInfo(raidNumber);
+        System.out.println(debugTmp + "2");
+        return debugTmp;
     }
 }

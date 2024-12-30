@@ -83,7 +83,7 @@
     <select id="getRaidMatchInfo" resultType="com.example.testtoy.dto.RaidMatchDto">
         SELECT *
         FROM public.character_raid
-        ORDER BY time
+        ORDER BY no DESC
     </select>
 
     <select id="selectRaidMatchInfo" parameterType="com.example.testtoy.dto.RaidMatchDto" resultType="com.example.testtoy.dto.RaidMatchDto">
@@ -91,7 +91,6 @@
         FROM public.character_raid
         WHERE raid_name = #{raidName}
         and character_name = #{characterName}
-        ORDER BY time
     </select>
 
     <insert id="insertRaidMatchInfo" parameterType="com.example.testtoy.dto.RaidMatchDto">
@@ -118,5 +117,17 @@
                    #{characterName}
                )
     </insert>
+
+    <select id="getRaidMatchCharacterInfo" parameterType="int" resultType="com.example.testtoy.dto.RaidMatchCharacterDto">
+        SELECT cha.character_name,
+               cha.item_max_level,
+               cha.class_name,
+               cha.class_type
+        FROM public.character AS cha
+                 LEFT JOIN public.character_raid_detail AS crd
+                           ON cha.character_name = crd.character_name
+        WHERE crd.no = #{raidNumber}
+        ORDER BY cha.class_type ASC
+    </select>
 
 </mapper>

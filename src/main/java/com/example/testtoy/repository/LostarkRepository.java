@@ -2,6 +2,7 @@ package com.example.testtoy.repository;
 
 import com.example.testtoy.dto.CharacterInfoDto;
 import com.example.testtoy.dto.RaidDataDto;
+import com.example.testtoy.dto.RaidMatchCharacterDto;
 import com.example.testtoy.dto.RaidMatchDto;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -18,6 +19,7 @@ public interface LostarkRepository {
     void insertRaidMatchInfo(RaidMatchDto sortedData);
     RaidMatchDto selectRaidMatchInfo(RaidMatchDto sortedData);
     void insertRaidMatchCharacterInfo(RaidMatchDto sortedData);
+    List<RaidMatchCharacterDto> getRaidMatchCharacterInfo(int raidNumber);
 
 }
 
