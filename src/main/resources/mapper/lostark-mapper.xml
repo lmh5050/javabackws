@@ -6,7 +6,7 @@
         SELECT *
         FROM public.character
         WHERE id = #{username}
-        ORDER BY item_max_level
+        ORDER BY character_name_represent , item_max_level DESC
     </select>
 
     <select id="getRaidData" resultType="com.example.testtoy.dto.RaidDataDto">
@@ -74,7 +74,7 @@
             (
             #{item.serverName},
             #{username},
-            #{item.representCharacterName},
+            #{item.characterNameRepresent},
             #{item.characterName},
             #{item.characterClassName},
             #{item.itemMaxLevel},

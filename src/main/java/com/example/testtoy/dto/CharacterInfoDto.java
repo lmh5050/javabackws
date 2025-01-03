@@ -20,9 +20,10 @@ public class CharacterInfoDto {
     private String classType;
     private String className;
     private String characterNameRepresent;
+    private String representCharacterName;
 
-    public void setRepresentCharacterName(String representCharacterName) {
-        this.characterNameRepresent = representCharacterName;
+    public void setRepresentCharacterName(String characterNameRepresent) {
+        this.characterNameRepresent = characterNameRepresent;
     }
 
 }
