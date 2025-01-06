@@ -17,8 +17,9 @@ public interface LostarkRepository {
     void insertRaidMatchInfo(RaidMatchDto sortedData);
     RaidMatchDto selectRaidMatchInfo(RaidMatchDto sortedData);
     void insertRaidMatchCharacterInfo(RaidMatchDto sortedData);
-    List<RaidMatchCharacterDto> getRaidMatchCharacterInfo(int raidNumber);
+    List<RaidMatchCharacterDto> getRaidMatchCharacterInfo(String raidNumber);
     List<RaidApplyCharacterInfoDto> getRaidMatchApplyRaid(String id);
+    int  insertRaidApplyData(RaidMatchDto requestData); //레이드 데이터 등록
 
 }
 

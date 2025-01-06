@@ -128,7 +128,7 @@
                )
     </insert>
 
-    <select id="getRaidMatchCharacterInfo" parameterType="int" resultType="com.example.testtoy.dto.RaidMatchCharacterDto">
+    <select id="getRaidMatchCharacterInfo" parameterType="String" resultType="com.example.testtoy.dto.RaidMatchCharacterDto">
         SELECT cha.character_name,
                cha.item_max_level,
                cha.class_name,
@@ -149,5 +149,15 @@
         FROM public.character
         where id = #{id}
     </select>
+
+    <insert id="insertRaidApplyData" parameterType="com.example.testtoy.dto.RaidMatchDto">
+        INSERT INTO character_raid_detail (
+            no,
+            character_name
+        )
+        VALUES (
+                   #{raidNo},
+                   #{characterName})
+    </insert>
 
 </mapper>

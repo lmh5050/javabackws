@@ -16,4 +16,6 @@ public class RaidMatchDto {
 
     private String id;
 
+    private String raidNo;
+
 }

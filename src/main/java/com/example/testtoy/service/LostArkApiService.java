@@ -128,8 +128,8 @@ public class LostArkApiService {
 
     //레이드에 매칭 되어진 캐릭터 가져오는 API
     public List<RaidMatchCharacterDto> getRaidMatchCharacterInfo(String raidNo) {
-        int raidNumber = Integer.parseInt(raidNo);
-        List<RaidMatchCharacterDto> debugTmp = LostarkRepository.getRaidMatchCharacterInfo(raidNumber);
+
+        List<RaidMatchCharacterDto> debugTmp = LostarkRepository.getRaidMatchCharacterInfo(raidNo);
         return debugTmp;
     }
 
@@ -137,5 +137,10 @@ public class LostArkApiService {
         System.out.println(id);
         System.out.println(LostarkRepository.getRaidMatchApplyRaid(id));
         return LostarkRepository.getRaidMatchApplyRaid(id);
+    }
+
+    public int insertRaidMatchApply(RaidMatchDto requestData) {
+        int debugTmp = LostarkRepository.insertRaidApplyData(requestData);
+        return 0;
     }
 }

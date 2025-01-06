@@ -80,7 +80,11 @@ import java.util.Map;
         return result;
     }
 
-
+    @PostMapping("/characters/raidMatchApply") //레이드 매칭 에 데이터 등록하는 api
+    public int insertRaidMatchApply(@RequestBody RaidMatchDto requestData) {
+        lostArkApiService.insertRaidMatchApply(requestData);
+        return 0;
+    }
 }
 
 
