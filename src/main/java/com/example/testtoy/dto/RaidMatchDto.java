@@ -1,22 +1,19 @@
 package com.example.testtoy.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
+import lombok.Data;
+@Data
 public class RaidMatchDto {
 
-    @JsonProperty("raidName")
     private String raidName;
 
-    @JsonProperty("characterName")
     private String characterName;
 
-    @JsonProperty("time")
     private String time;
 
-    @JsonProperty("text")
     private String text;
 
-    @JsonProperty("no")
     private int no;
+
+    private String id;
 
 }

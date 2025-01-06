@@ -121,6 +121,7 @@ public class LostArkApiService {
     @Transactional//레이드 데이터 DB에 insert 하는 메소드 , 두개의 DB에 다 insert해야 해서 트랜잭션 사용
     public void insertRaidMatchInfo(RaidMatchDto requestData) {
         LostarkRepository.insertRaidMatchInfo(requestData); // 데이터를 인서트 하는 코드
+        System.out.println(requestData + "예상 데이터 입니다.");
         RaidMatchDto selectedData = LostarkRepository.selectRaidMatchInfo(requestData);
         LostarkRepository.insertRaidMatchCharacterInfo(selectedData); // 가져온 데이터를 다시 다른 테이블에 넣어주는 구조
     }
@@ -132,4 +133,9 @@ public class LostArkApiService {
         return debugTmp;
     }
 
+    public List<RaidApplyCharacterInfoDto> getRaidMatchApplyRaid(String id) {
+        System.out.println(id);
+        System.out.println(LostarkRepository.getRaidMatchApplyRaid(id));
+        return LostarkRepository.getRaidMatchApplyRaid(id);
+    }
 }

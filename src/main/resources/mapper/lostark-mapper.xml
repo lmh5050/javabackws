@@ -103,12 +103,14 @@
 
     <insert id="insertRaidMatchInfo" parameterType="com.example.testtoy.dto.RaidMatchDto">
         INSERT INTO character_raid (
+            id,
             raid_name,
             character_name,
             time,
             text
         )
         VALUES (
+                   #{id},
                    #{raidName},
                    #{characterName},
                    #{time},
@@ -136,6 +138,16 @@
                            ON cha.character_name = crd.character_name
         WHERE crd.no = #{raidNumber}
         ORDER BY cha.class_type ASC
+    </select>
+
+    <select id="getRaidMatchApplyRaid" parameterType="String" resultType="com.example.testtoy.dto.RaidApplyCharacterInfoDto">
+        SELECT  id,
+                character_name,
+                item_max_level,
+                class_name,
+                class_type
+        FROM public.character
+        where id = #{id}
     </select>
 
 </mapper>

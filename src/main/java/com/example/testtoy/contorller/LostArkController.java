@@ -63,6 +63,7 @@ import java.util.Map;
 
     @PostMapping("/characters/raidMatch") //레이드 매칭 에 데이터 등록하는 api
     public int insertRaidMatch(@RequestBody RaidMatchDto requestData) {
+        System.out.println("Received Data1: " +  requestData.getId());
         lostArkApiService.insertRaidMatchInfo(requestData);
         return 0;
     }
@@ -71,6 +72,15 @@ import java.util.Map;
     public List<RaidMatchCharacterDto> getRaidMatchCharacterInfo(@PathVariable String raidNo) {
         return lostArkApiService.getRaidMatchCharacterInfo(raidNo);
     }
+
+    @GetMapping("/characters/applyRaid/{id}")
+    public List<RaidApplyCharacterInfoDto> applyRaid(@PathVariable String id) {
+        // 요청 데이터 확인
+        List<RaidApplyCharacterInfoDto> result = lostArkApiService.getRaidMatchApplyRaid(id);
+        return result;
+    }
+
+
 }
 
 
