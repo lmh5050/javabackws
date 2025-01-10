@@ -85,6 +85,19 @@ import java.util.Map;
         lostArkApiService.insertRaidMatchApply(requestData);
         return 0;
     }
+
+    @GetMapping("/characters/goldcheck/{id}")
+    public List<WeeklyCharacterResultDto> getGoldCheck(@PathVariable String id) {
+        // 요청 데이터 확인
+        List<WeeklyCharacterResultDto> weeklyCharacterResult = lostArkApiService.getGoldCheck(id);
+        return weeklyCharacterResult;
+    }
+
+    @PostMapping("/characters/goldcheck/save") //레이드 매칭 에 데이터 등록하는 api
+    public int updateGoldCheckList(@RequestBody final List<WeeklyCharacterResultDto> requestData) {
+        lostArkApiService.updateGoldCheckList(requestData);
+        return 0;
+    }
 }
 
 

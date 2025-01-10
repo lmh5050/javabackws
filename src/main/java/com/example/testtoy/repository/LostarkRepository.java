@@ -12,7 +12,8 @@ public interface LostarkRepository {
     List<CharacterInfoDto> getCharacterInfoList(String username);
     int  insertRaidData(RaidDataDto raidInfo); //레이드 데이터 등록
     void deleteRaidData(String raidName); //레이드 데이터 삭제
-    void insertCharacterData(Map<String, Object> sortedData); //캐릭터 정보 등록
+    void insertCharacterData(Map<String, Object> sortedData);
+    void insertWeeklyRaidResultCharacterInfo (Map<String, Object> sortedData);//캐릭터 정보 등록
     List<RaidMatchDto> getRaidMatchInfo();
     void insertRaidMatchInfo(RaidMatchDto sortedData);
     RaidMatchDto selectRaidMatchInfo(RaidMatchDto sortedData);
@@ -20,6 +21,7 @@ public interface LostarkRepository {
     List<RaidMatchCharacterDto> getRaidMatchCharacterInfo(String raidNumber);
     List<RaidApplyCharacterInfoDto> getRaidMatchApplyRaid(String id);
     int  insertRaidApplyData(RaidMatchDto requestData); //레이드 데이터 등록
-
+    List<WeeklyCharacterResultDto> getGoldCheck(String id);
+    void updateGoldCheckList(WeeklyCharacterResultDto requestData);
 }
 

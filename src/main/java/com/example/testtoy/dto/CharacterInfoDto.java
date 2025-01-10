@@ -18,7 +18,7 @@ public class CharacterInfoDto {
     private String itemMaxLevel;
 
     private String classType;
-    private String className;
+
     private String characterNameRepresent;
     private String representCharacterName;
 

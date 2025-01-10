@@ -86,7 +86,7 @@ public class LostArkApiService {
             // 모든 캐릭터의 대표 캐릭터명에 첫 번째 캐릭터 이름을 설정
             sortedCharacterInfo.forEach(character -> character.setRepresentCharacterName(representativeCharacterName));
         }
-
+        System.out.println(characterInfo + "캐릭터 인포~~");
         System.out.println(sortedCharacterInfo);
 
         // Map을 사용하여 username과 sortedData를 전달
@@ -95,6 +95,7 @@ public class LostArkApiService {
         parameters.put("username", characterName.getUsername());
 
         LostarkRepository.insertCharacterData(parameters);
+        LostarkRepository.insertWeeklyRaidResultCharacterInfo(parameters); // 가져온 데이터를 다시 다른 테이블에 넣어주는 구조
         return sortedCharacterInfo;
     }
 
@@ -142,5 +143,16 @@ public class LostArkApiService {
     public int insertRaidMatchApply(RaidMatchDto requestData) {
         int debugTmp = LostarkRepository.insertRaidApplyData(requestData);
         return 0;
+    }
+
+    public List<WeeklyCharacterResultDto> getGoldCheck(String id) {
+        return LostarkRepository.getGoldCheck(id);
+    }
+
+    public void updateGoldCheckList(List<WeeklyCharacterResultDto> requestData){
+        for (WeeklyCharacterResultDto rd : requestData)
+        {
+            LostarkRepository.updateGoldCheckList(rd);
+        }
     }
 }

@@ -65,7 +65,7 @@
         id,
         character_name_represent,
         character_name,
-        class_name,
+        character_class_name,
         item_max_level,
         class_type
         )
@@ -79,6 +79,20 @@
             #{item.characterClassName},
             #{item.itemMaxLevel},
             #{item.classType}
+            )
+        </foreach>
+    </insert>
+
+    <insert id="insertWeeklyRaidResultCharacterInfo" parameterType="map">
+        INSERT INTO weekly_raid_result (
+        id,
+        character_name
+        )
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            (
+            #{username},
+            #{item.characterName}
             )
         </foreach>
     </insert>
@@ -131,7 +145,7 @@
     <select id="getRaidMatchCharacterInfo" parameterType="String" resultType="com.example.testtoy.dto.RaidMatchCharacterDto">
         SELECT cha.character_name,
                cha.item_max_level,
-               cha.class_name,
+               cha.character_class_name,
                cha.class_type
         FROM public.character AS cha
                  LEFT JOIN public.character_raid_detail AS crd
@@ -144,7 +158,7 @@
         SELECT  id,
                 character_name,
                 item_max_level,
-                class_name,
+                character_class_name,
                 class_type
         FROM public.character
         where id = #{id}
@@ -159,5 +173,45 @@
                    #{raidNo},
                    #{characterName})
     </insert>
+
+    <select id="getGoldCheck" parameterType="String" resultType="com.example.testtoy.dto.WeeklyCharacterResultDto">
+        select
+            wrr.character_name ,
+            cha.item_max_level,
+            wrr.id,
+            wrr.karmen,
+            wrr.echidna,
+            wrr.behimoth,
+            wrr.karmen4,
+            wrr.egir,
+            wrr.abrellshould,
+            wrr.chaos,
+            wrr.guardian,
+            wrr.epona,
+            wrr.guildexchange
+        from
+            weekly_raid_result wrr
+                inner join
+            character as cha
+            on
+                wrr.character_name  = cha.character_name
+        where
+            wrr.id = #{id}
+    </select>
+
+    <update id="updateGoldCheckList" parameterType="com.example.testtoy.dto.RaidMatchDto">
+        UPDATE weekly_raid_result
+        SET karmen = #{karmen},
+            echidna = #{echidna},
+            behimoth = #{behimoth},
+            karmen4 = #{karmen4},
+            egir = #{egir},
+            abrellshould = #{abrellshould},
+            chaos = #{chaos},
+            guardian = #{guardian},
+            epona = #{epona},
+            guildexchange = #{guildexchange}
+        WHERE character_name = #{characterName};
+    </update>
 
 </mapper>
