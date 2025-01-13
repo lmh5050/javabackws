@@ -18,4 +18,10 @@ public class RaidMatchDto {
 
     private String raidNo;
 
+    private String raidMaxMember;
+
+    private String raidCurrentMember;
+
+    private String username;
+
 }

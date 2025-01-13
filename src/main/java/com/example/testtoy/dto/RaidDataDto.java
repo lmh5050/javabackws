@@ -30,4 +30,6 @@ public class RaidDataDto {
     private String plus3;
 
     private String raidLevel;
+
+    private String raidMaxMember;
 }

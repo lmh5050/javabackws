@@ -24,7 +24,8 @@
             reward1,
             plus1,
             plus2,
-            plus3
+            plus3,
+            raid_max_member
         )
         VALUES (
                    #{raidName},
@@ -55,6 +56,10 @@
                     <choose>
                         <when test="plus3 == null or plus3 == ''">NULL</when>
                         <otherwise>#{plus3}</otherwise>
+                    </choose>,
+                    <choose>
+                        <when test="raidmaxmember == null or raidmaxmember == ''">NULL</when>
+                        <otherwise>#{raidmaxmember}</otherwise>
                     </choose>
                )
     </insert>
@@ -103,9 +108,27 @@
     </delete>
 
     <select id="getRaidMatchInfo" resultType="com.example.testtoy.dto.RaidMatchDto">
-        SELECT *
-        FROM public.character_raid
-        ORDER BY no DESC
+        SELECT chrd.no,
+               chrd.character_name,
+               chrd.raid_name,
+               chrd.id,
+               chrd.time,
+               chrd.text,
+               rd.raid_max_member,
+               COUNT(crd_detail.no) AS raid_current_member
+        FROM public.character_raid AS chrd
+                 JOIN public.raid AS rd
+                      ON chrd.raid_name = rd.raid_name
+                 LEFT JOIN public.character_raid_detail AS crd_detail
+                           ON CAST(chrd.no AS TEXT) = crd_detail.no
+        GROUP BY chrd.no,
+                 chrd.character_name,
+                 chrd.raid_name,
+                 chrd.id,
+                 chrd.time,
+                 chrd.text,
+                 rd.raid_max_member
+        ORDER BY chrd.no DESC;
     </select>
 
     <select id="selectRaidMatchInfo" parameterType="com.example.testtoy.dto.RaidMatchDto" resultType="com.example.testtoy.dto.RaidMatchDto">
@@ -167,11 +190,13 @@
     <insert id="insertRaidApplyData" parameterType="com.example.testtoy.dto.RaidMatchDto">
         INSERT INTO character_raid_detail (
             no,
-            character_name
+            character_name,
+            id
         )
         VALUES (
                    #{raidNo},
-                   #{characterName})
+                   #{characterName},
+                   #{username})
     </insert>
 
     <select id="getGoldCheck" parameterType="String" resultType="com.example.testtoy.dto.WeeklyCharacterResultDto">
