@@ -135,7 +135,6 @@ public class LostArkApiService {
     }
 
     public List<RaidApplyCharacterInfoDto> getRaidMatchApplyRaid(String id) {
-        System.out.println(id);
         System.out.println(LostarkRepository.getRaidMatchApplyRaid(id));
         return LostarkRepository.getRaidMatchApplyRaid(id);
     }

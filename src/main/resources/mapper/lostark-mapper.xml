@@ -58,8 +58,8 @@
                         <otherwise>#{plus3}</otherwise>
                     </choose>,
                     <choose>
-                        <when test="raidmaxmember == null or raidmaxmember == ''">NULL</when>
-                        <otherwise>#{raidmaxmember}</otherwise>
+                        <when test="raidMaxMember == null or raidMaxMember == ''">NULL</when>
+                        <otherwise>#{raidMaxMember}</otherwise>
                     </choose>
                )
     </insert>
