@@ -73,7 +73,7 @@ import java.util.Map;
         return lostArkApiService.getRaidMatchCharacterInfo(raidNo);
     }
 
-    @GetMapping("/characters/applyRaid/{id}")
+    @GetMapping("/characters/applyRaid/{id}") //레이드 신청을 눌렸을때 id 값 가지고 데이터 조회하는 API
     public List<RaidApplyCharacterInfoDto> applyRaid(@PathVariable String id) {
         // 요청 데이터 확인
         List<RaidApplyCharacterInfoDto> result = lostArkApiService.getRaidMatchApplyRaid(id);
@@ -86,7 +86,7 @@ import java.util.Map;
         return 0;
     }
 
-    @GetMapping("/characters/goldcheck/{id}")
+    @GetMapping("/characters/goldcheck/{id}") // 골드체크 페이지에서 , 내 캐릭터들이 어떤거 있는지 확인하는 api
     public List<WeeklyCharacterResultDto> getGoldCheck(@PathVariable String id) {
         // 요청 데이터 확인
         List<WeeklyCharacterResultDto> weeklyCharacterResult = lostArkApiService.getGoldCheck(id);
@@ -96,6 +96,12 @@ import java.util.Map;
     @PostMapping("/characters/goldcheck/save") //레이드 매칭 에 데이터 등록하는 api
     public int updateGoldCheckList(@RequestBody final List<WeeklyCharacterResultDto> requestData) {
         lostArkApiService.updateGoldCheckList(requestData);
+        return 0;
+    }
+
+    @PostMapping("/characters/raid/RaidParticipate") //레이드 매칭 에 데이터 등록하는 api
+    public int updateRaidParticipate(@RequestBody final List<WeeklyCharacterResultDto> requestData) {
+        System.out.println("이거탐탐탐탐탐");
         return 0;
     }
 }
