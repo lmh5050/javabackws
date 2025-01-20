@@ -121,6 +121,7 @@
                       ON chrd.raid_name = rd.raid_name
                  LEFT JOIN public.character_raid_detail AS crd_detail
                            ON CAST(chrd.no AS TEXT) = crd_detail.no
+        where crd_detail.status::INTEGER != 2  -- varchar에서 integer로 형변환
         GROUP BY chrd.no,
                  chrd.character_name,
                  chrd.raid_name,
@@ -169,11 +170,13 @@
         SELECT cha.character_name,
                cha.item_max_level,
                cha.character_class_name,
-               cha.class_type
+               cha.class_type,
+               crd.status
         FROM public.character AS cha
                  LEFT JOIN public.character_raid_detail AS crd
                            ON cha.character_name = crd.character_name
         WHERE crd.no = #{raidNumber}
+          AND   crd.status::INTEGER != 2  -- varchar에서 integer로 형변환
         ORDER BY cha.class_type ASC
     </select>
 
@@ -191,12 +194,14 @@
         INSERT INTO character_raid_detail (
             no,
             character_name,
-            id
+            id,
+            status
         )
         VALUES (
                    #{raidNo},
                    #{characterName},
-                   #{username})
+                   #{username},
+                   '0')
     </insert>
 
     <select id="getGoldCheck" parameterType="String" resultType="com.example.testtoy.dto.WeeklyCharacterResultDto">
@@ -237,6 +242,13 @@
             epona = #{epona},
             guildexchange = #{guildexchange}
         WHERE character_name = #{characterName};
+    </update>
+
+    <update id="updateRaidParticipate" parameterType="com.example.testtoy.dto.RaidMatchConfirmDto">
+        UPDATE character_raid_detail
+        SET status = #{status}
+        WHERE character_name = #{characterName}
+        AND no = #{raidNo};
     </update>
 
 </mapper>

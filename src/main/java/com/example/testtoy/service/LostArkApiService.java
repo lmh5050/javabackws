@@ -140,6 +140,7 @@ public class LostArkApiService {
     }
 
     public int insertRaidMatchApply(RaidMatchDto requestData) {
+        //여기 부터 수정
         int debugTmp = LostarkRepository.insertRaidApplyData(requestData);
         return 0;
     }
@@ -154,4 +155,10 @@ public class LostArkApiService {
             LostarkRepository.updateGoldCheckList(rd);
         }
     }
+
+    public void updateRaidParticipate(RaidMatchConfirmDto requestData){
+        LostarkRepository.updateRaidParticipate(requestData);
+    }
+
+
 }

@@ -100,8 +100,10 @@ import java.util.Map;
     }
 
     @PostMapping("/characters/raid/RaidParticipate") //레이드 매칭 에 데이터 등록하는 api
-    public int updateRaidParticipate(@RequestBody final List<WeeklyCharacterResultDto> requestData) {
+    public int updateRaidParticipate(@RequestBody final RaidMatchConfirmDto requestData) {
         System.out.println("이거탐탐탐탐탐");
+        System.out.println(requestData);
+        lostArkApiService.updateRaidParticipate(requestData);
         return 0;
     }
 }
