@@ -31,5 +31,6 @@ public class RaidDataDto {
 
     private String raidLevel;
 
+    @JsonProperty("raidMaxMember")
     private String raidMaxMember;
 }
