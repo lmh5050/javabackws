@@ -7,18 +7,13 @@ import lombok.Data;
 public class CharacterInfoDto {
     @JsonProperty("ServerName")
     private String serverName;
-
     @JsonProperty("CharacterName")
     private String characterName;
-
     @JsonProperty("CharacterClassName")
     private String characterClassName;
-
     @JsonProperty("ItemMaxLevel")
     private String itemMaxLevel;
-
     private String classType;
-
     private String characterNameRepresent;
     private String representCharacterName;
 

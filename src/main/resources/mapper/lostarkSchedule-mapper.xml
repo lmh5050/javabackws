@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.testtoy.repository.LostarkScheduleRepository">
+
+    <select id="getExistData" resultType="com.example.testtoy.dto.CharacterInfoDto">
+        SELECT Distinct character_name_represent
+        FROM public.character
+    </select>
+
+    <update id="updateCharacterData" parameterType="java.util.List">
+        <foreach collection="list" item="character" separator=";">
+            UPDATE public.character
+            SET item_max_level = #{character.itemMaxLevel}
+            WHERE character_name = #{character.characterName}
+        </foreach>
+    </update>
+
+
+
+</mapper>
