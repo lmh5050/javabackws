@@ -158,11 +158,15 @@
     <insert id="insertRaidMatchCharacterInfo" parameterType="com.example.testtoy.dto.RaidMatchDto">
         INSERT INTO postgres.public.character_raid_detail (
             no,
-            character_name
+            character_name,
+            id,
+            status
         )
         VALUES (
                    #{no},
-                   #{characterName}
+                   #{characterName},
+                   #{id},
+                   0
                )
     </insert>
 
@@ -250,5 +254,14 @@
         WHERE character_name = #{characterName}
         AND no = #{raidNo};
     </update>
+
+    <update id="updateRaidEndDailyWeek" parameterType="com.example.testtoy.dto.RaidMatchConfirmDto">
+        UPDATE character_raid_detail
+        SET status = #{status}
+        WHERE character_name = #{characterName}
+          AND no = #{raidNo};
+    </update>
+
+
 
 </mapper>

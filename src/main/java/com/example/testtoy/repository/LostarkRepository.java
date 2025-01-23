@@ -23,7 +23,9 @@ public interface LostarkRepository {
     int  insertRaidApplyData(RaidMatchDto requestData); //레이드 데이터 등록
     List<WeeklyCharacterResultDto> getGoldCheck(String id);
     void updateGoldCheckList(WeeklyCharacterResultDto requestData);
-    int  updateRaidParticipate(RaidMatchConfirmDto requestData); //레이드 데이터 등록
+    void  updateRaidParticipate(RaidMatchConfirmDto requestData); //레이드 데이터 등록
+    void  updateRaidEndDailyWeek(RaidMatchConfirmDto requestData);
+
 
 }
 

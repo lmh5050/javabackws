@@ -56,56 +56,66 @@ import java.util.Map;
         return 0;  // 성공적인 삭제 후 반환
     }
 
-    @GetMapping("/characters/raidMatch") //레이드 테이블에서 값 불러오는 api
+    @GetMapping("/characters/raid-match") //레이드 테이블에서 값 불러오는 api
     public List<RaidMatchDto> getRaidMatchInfo() {
         return lostArkApiService.getRaidMatchInfo();
     }
 
-    @PostMapping("/characters/raidMatch") //레이드 매칭 에 데이터 등록하는 api
+    @PostMapping("/characters/raid-match") //레이드 매칭 에 데이터 등록하는 api
     public int insertRaidMatch(@RequestBody RaidMatchDto requestData) {
         System.out.println("Received Data1: " +  requestData.getId());
         lostArkApiService.insertRaidMatchInfo(requestData);
         return 0;
     }
 
-    @GetMapping("/characters/raidDetail/{raidNo}") //레이드 테이블에서 값 불러오는 api
+    @GetMapping("/characters/raid-detail/{raidNo}") //레이드 테이블에서 값 불러오는 api
     public List<RaidMatchCharacterDto> getRaidMatchCharacterInfo(@PathVariable String raidNo) {
         return lostArkApiService.getRaidMatchCharacterInfo(raidNo);
     }
 
-    @GetMapping("/characters/applyRaid/{id}") //레이드 신청을 눌렸을때 id 값 가지고 데이터 조회하는 API
+    @GetMapping("/characters/apply-raid/{id}") //레이드 신청을 눌렸을때 id 값 가지고 데이터 조회하는 API
     public List<RaidApplyCharacterInfoDto> applyRaid(@PathVariable String id) {
         // 요청 데이터 확인
         List<RaidApplyCharacterInfoDto> result = lostArkApiService.getRaidMatchApplyRaid(id);
         return result;
     }
 
-    @PostMapping("/characters/raidMatchApply") //레이드 매칭 에 데이터 등록하는 api
+    @PostMapping("/characters/raid-match-apply") //레이드 매칭 에 데이터 등록하는 api
     public int insertRaidMatchApply(@RequestBody RaidMatchDto requestData) {
         lostArkApiService.insertRaidMatchApply(requestData);
         return 0;
     }
 
-    @GetMapping("/characters/goldcheck/{id}") // 골드체크 페이지에서 , 내 캐릭터들이 어떤거 있는지 확인하는 api
+    @GetMapping("/characters/gold-check/{id}") // 골드체크 페이지에서 , 내 캐릭터들이 어떤거 있는지 확인하는 api
     public List<WeeklyCharacterResultDto> getGoldCheck(@PathVariable String id) {
         // 요청 데이터 확인
         List<WeeklyCharacterResultDto> weeklyCharacterResult = lostArkApiService.getGoldCheck(id);
         return weeklyCharacterResult;
     }
 
-    @PostMapping("/characters/goldcheck/save") //레이드 매칭 에 데이터 등록하는 api
+    @PostMapping("/characters/gold-check/save") //레이드 매칭 에 데이터 등록하는 api
     public int updateGoldCheckList(@RequestBody final List<WeeklyCharacterResultDto> requestData) {
         lostArkApiService.updateGoldCheckList(requestData);
         return 0;
     }
 
-    @PostMapping("/characters/raid/RaidParticipate") //레이드 매칭 에 데이터 등록하는 api
+    @PostMapping("/characters/raid/raid-participate") //레이드 매칭 에 데이터 등록하는 api
     public int updateRaidParticipate(@RequestBody final RaidMatchConfirmDto requestData) {
-        System.out.println("이거탐탐탐탐탐");
-        System.out.println(requestData);
+        System.out.println("이거탐탐탐탐탐" + requestData);
         lostArkApiService.updateRaidParticipate(requestData);
         return 0;
     }
+
+    @PostMapping("/characters/raid/raid-end") //레이드 매칭 에 데이터 등록하는 api
+    public int updateRaidEndDailyWeek(@RequestBody final RaidMatchConfirmDto requestData) {
+        System.out.println("완료 버튼 테스트 req데이터 확인" + requestData);
+        lostArkApiService.updateRaidEndDailyWeek(requestData);
+        //정보에서 레이드명 들고 올 수 있으니까
+        //서비스단에서 그 레이드명을 Weekly 테이블의 컬럼명과 바꿔주고
+        //그 정보랑 프론트에서 준 정보랑 합쳐서 for each문으로 업데이트 돌려주면 댈거같다
+        return 0;
+    }
+
 }
 
 

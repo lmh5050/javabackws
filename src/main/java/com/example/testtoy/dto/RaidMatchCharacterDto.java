@@ -14,6 +14,5 @@ public class RaidMatchCharacterDto {
     private String characterClassName;  // String으로 변경
     @JsonProperty("classType")
     private String classType;
-    @JsonProperty("status")
     private String status;
 }
