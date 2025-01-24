@@ -107,7 +107,7 @@ import java.util.Map;
     }
 
     @PostMapping("/characters/raid/raid-end") //레이드 매칭 에 데이터 등록하는 api
-    public int updateRaidEndDailyWeek(@RequestBody final RaidMatchConfirmDto requestData) {
+    public int updateRaidEndDailyWeek(@RequestBody final WeeklyCharacterUpdateDataDto requestData) {
         System.out.println("완료 버튼 테스트 req데이터 확인" + requestData);
         lostArkApiService.updateRaidEndDailyWeek(requestData);
         //정보에서 레이드명 들고 올 수 있으니까

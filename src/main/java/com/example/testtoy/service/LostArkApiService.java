@@ -160,8 +160,7 @@ public class LostArkApiService {
         LostarkRepository.updateRaidParticipate(requestData);
     }
 
-    public void updateRaidEndDailyWeek(RaidMatchConfirmDto requestData){
-        LostarkRepository.updateRaidEndDailyWeek(requestData);
+    public void updateRaidEndDailyWeek(WeeklyCharacterUpdateDataDto requestData){
     }
 
 
