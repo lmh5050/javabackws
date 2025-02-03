@@ -1,7 +1,7 @@
 version: '3'
 services:
   spring-backend:
-    image: sebrinu/testtoy  # 로컬에서 빌드한 이미지 이름
+    image: sebrinu/back-end-ws  # 로컬에서 빌드한 이미지 이름
     build: .
     ports:
       - "8081:8080"  # 호스트와 컨테이너의 포트 매핑
