@@ -41,7 +41,6 @@ public class JwtTokenProvider {
                     .setExpiration(validity)
                     .signWith(key, SignatureAlgorithm.HS512)  // Key 객체와 알고리즘을 지정
                     .compact();
-            System.out.println(Arrays.toString(jwtsConst.getBytes()) + "키입니다2");
             return jwtsConst;
         } catch (Exception e) {
             System.out.println("JWT 생성 중 예외 발생: " + e.getMessage());

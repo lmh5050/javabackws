@@ -122,6 +122,7 @@
                  LEFT JOIN public.character_raid_detail AS crd_detail
                            ON CAST(chrd.no AS TEXT) = crd_detail.no
         where crd_detail.status::INTEGER != 2  -- varchar에서 integer로 형변환
+        and delete_flag != TRUE
         GROUP BY chrd.no,
                  chrd.character_name,
                  chrd.raid_name,
@@ -255,13 +256,27 @@
         AND no = #{raidNo};
     </update>
 
-    <update id="updateRaidEndDailyWeek" parameterType="com.example.testtoy.dto.RaidMatchConfirmDto">
-        UPDATE character_raid_detail
-        SET status = #{status}
-        WHERE character_name = #{characterName}
-          AND no = #{raidNo};
+    <update id="updateRaidEndDailyWeek" parameterType="WeeklyCharacterUpdateDataDto">
+        <foreach collection="raids" item="raid" separator=";">
+            UPDATE weekly_raid_result
+            SET ${raidName} = TRUE
+            WHERE character_name = #{raid.characterName}
+        </foreach>
     </update>
 
+    <update id="updateRaidEndDailyCharacter" parameterType="WeeklyCharacterUpdateDataDto">
+        <foreach collection="raids" item="raid" separator=";">
+            UPDATE character_raid_detail
+            SET status = '3'
+            WHERE character_name = #{raid.characterName}
+            and no = #{raidNo}
+        </foreach>
+    </update>
 
+    <update id="updateRaidEndResult" parameterType="int">
+        UPDATE character_raid
+        SET delete_flag = TRUE
+        WHERE no = #{raidNo}
+    </update>
 
 </mapper>

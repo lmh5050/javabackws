@@ -27,8 +27,6 @@ import java.util.Map;
 
     @PostMapping("/characters") // 인풋창에서 등록 눌리면 데이터 db에 등록되는 api
     public List<CharacterInfoDto> updateCharacterInfo(@RequestBody CharacterRegisterDto requestData) {
-        System.out.println("Received Data1: " +  requestData.getCharacterName());
-        System.out.println("Received Data2: " +  requestData.getUsername());
         // 데이터 처리 후 응답
         return lostArkApiService.updateCharacterInfoList(requestData);
     }
@@ -50,8 +48,6 @@ import java.util.Map;
     @DeleteMapping("/characters/raid/{raidName}") //레이드 테이블에서 값 삭제하는 api
     public int deleteRaidData(@PathVariable String raidName, @RequestBody Map<String, String> requestData) {
         String inputData = requestData.get("data");
-        System.out.println("Raid Name: " + raidName);
-        System.out.println("Received Data: " + inputData);
         lostArkApiService.deleteRaidData(inputData);  // 실제 레이드 데이터 삭제 로직
         return 0;  // 성공적인 삭제 후 반환
     }
@@ -63,7 +59,6 @@ import java.util.Map;
 
     @PostMapping("/characters/raid-match") //레이드 매칭 에 데이터 등록하는 api
     public int insertRaidMatch(@RequestBody RaidMatchDto requestData) {
-        System.out.println("Received Data1: " +  requestData.getId());
         lostArkApiService.insertRaidMatchInfo(requestData);
         return 0;
     }
@@ -101,19 +96,17 @@ import java.util.Map;
 
     @PostMapping("/characters/raid/raid-participate") //레이드 매칭 에 데이터 등록하는 api
     public int updateRaidParticipate(@RequestBody final RaidMatchConfirmDto requestData) {
-        System.out.println("이거탐탐탐탐탐" + requestData);
         lostArkApiService.updateRaidParticipate(requestData);
         return 0;
     }
 
     @PostMapping("/characters/raid/raid-end") //레이드 매칭 에 데이터 등록하는 api
-    public int updateRaidEndDailyWeek(@RequestBody final WeeklyCharacterUpdateDataDto requestData) {
-        System.out.println("완료 버튼 테스트 req데이터 확인" + requestData);
+    public WeeklyCharacterUpdateDataDto updateRaidEndDailyWeek(@RequestBody final WeeklyCharacterUpdateDataDto requestData) {
         lostArkApiService.updateRaidEndDailyWeek(requestData);
         //정보에서 레이드명 들고 올 수 있으니까
         //서비스단에서 그 레이드명을 Weekly 테이블의 컬럼명과 바꿔주고
         //그 정보랑 프론트에서 준 정보랑 합쳐서 for each문으로 업데이트 돌려주면 댈거같다
-        return 0;
+        return requestData;
     }
 
 }

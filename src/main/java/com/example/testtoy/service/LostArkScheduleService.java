@@ -61,10 +61,6 @@ public class LostArkScheduleService {
                 .doOnTerminate(() -> System.out.println("Batch update starting..."))
                 .subscribe(filteredCharacterInfoList -> {
                     // 필터링된 캐릭터 정보 리스트를 리포지토리로 넘겨서 배치 업데이트
-                    System.out.println("Filtered Character List Size: " + filteredCharacterInfoList.size());
-                    System.out.println("Filtered Character List: " + filteredCharacterInfoList.get(0));
-                    System.out.println("Filtered Character List: " + filteredCharacterInfoList.get(1));
-                    System.out.println("Filtered Character List: " + filteredCharacterInfoList.get(2));
                     lostarkScheduleRepository.updateCharacterData(filteredCharacterInfoList);  // List<CharacterInfoDto> 전달
                 });
     }

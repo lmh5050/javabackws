@@ -11,6 +11,7 @@ import com.example.testtoy.repository.LostarkRepository;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 
@@ -33,7 +34,6 @@ public class LostArkApiService {
     // 캐릭터 정보 가져오기
     public List<CharacterInfoDto> getCharacterInfoList(String username) {
         List<CharacterInfoDto> sortedCharacterInfo = LostarkRepository.getCharacterInfoList(username);
-        System.out.println(sortedCharacterInfo);
         return sortedCharacterInfo;
     }
 
@@ -86,8 +86,6 @@ public class LostArkApiService {
             // 모든 캐릭터의 대표 캐릭터명에 첫 번째 캐릭터 이름을 설정
             sortedCharacterInfo.forEach(character -> character.setRepresentCharacterName(representativeCharacterName));
         }
-        System.out.println(characterInfo + "캐릭터 인포~~");
-        System.out.println(sortedCharacterInfo);
 
         // Map을 사용하여 username과 sortedData를 전달
         Map<String, Object> parameters = new HashMap<>();
@@ -122,7 +120,6 @@ public class LostArkApiService {
     @Transactional//레이드 데이터 DB에 insert 하는 메소드 , 두개의 DB에 다 insert해야 해서 트랜잭션 사용
     public void insertRaidMatchInfo(RaidMatchDto requestData) {
         LostarkRepository.insertRaidMatchInfo(requestData); // 데이터를 인서트 하는 코드
-        System.out.println(requestData + "예상 데이터 입니다.");
         RaidMatchDto selectedData = LostarkRepository.selectRaidMatchInfo(requestData);
         LostarkRepository.insertRaidMatchCharacterInfo(selectedData); // 가져온 데이터를 다시 다른 테이블에 넣어주는 구조
     }
@@ -135,7 +132,6 @@ public class LostArkApiService {
     }
 
     public List<RaidApplyCharacterInfoDto> getRaidMatchApplyRaid(String id) {
-        System.out.println(LostarkRepository.getRaidMatchApplyRaid(id));
         return LostarkRepository.getRaidMatchApplyRaid(id);
     }
 
@@ -160,8 +156,36 @@ public class LostArkApiService {
         LostarkRepository.updateRaidParticipate(requestData);
     }
 
+    @Transactional
     public void updateRaidEndDailyWeek(WeeklyCharacterUpdateDataDto requestData){
-    }
-
-
+        switch (requestData.getRaidName()) {
+            case "카멘(하드)":
+                requestData.setRaidName("karmen");
+                break;
+            case "에키드나(하드)":
+                requestData.setRaidName("echidna");
+                break;
+            case "베히모스":
+                requestData.setRaidName("behimoth");
+                break;
+            case "에기르(노말)":
+                requestData.setRaidName("egir");
+                break;
+            case "에기르(하드)":
+                requestData.setRaidName("egir");
+                break;
+            case "아브(노말)":
+                requestData.setRaidName("abrellshould");
+                break;
+            case "아브(하드)":
+                requestData.setRaidName("abrellshould");
+                break;
+            default:
+                throw new IllegalArgumentException("잘못된 레이드 이름입니다: " + requestData.getRaidName());
+        }
+        LostarkRepository.updateRaidEndDailyWeek(requestData);
+        LostarkRepository.updateRaidEndDailyCharacter(requestData);
+        int raidNo = Integer.parseInt(requestData.getRaidNo());
+        LostarkRepository.updateRaidEndResult(raidNo);
+        }
 }

@@ -7,6 +7,7 @@ import java.util.List;
 
 @Data
 public class WeeklyCharacterUpdateDataDto {
-    private String username;
+    private String raidName;
+    private String raidNo;
     private List<RaidMatchCharacterDto> raids = new ArrayList<>();
 }
