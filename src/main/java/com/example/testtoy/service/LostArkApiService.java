@@ -168,17 +168,14 @@ public class LostArkApiService {
             case "베히모스":
                 requestData.setRaidName("behimoth");
                 break;
-            case "에기르(노말)":
+            case "에기르(노말)", "에기르(하드)":
                 requestData.setRaidName("egir");
                 break;
-            case "에기르(하드)":
-                requestData.setRaidName("egir");
-                break;
-            case "아브(노말)":
+            case "아브(노말)", "아브(하드)":
                 requestData.setRaidName("abrellshould");
                 break;
-            case "아브(하드)":
-                requestData.setRaidName("abrellshould");
+            case "카제3막(노말)", "카제3막(하드)":
+                requestData.setRaidName("mordum");
                 break;
             default:
                 throw new IllegalArgumentException("잘못된 레이드 이름입니다: " + requestData.getRaidName());
