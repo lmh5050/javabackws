@@ -25,7 +25,7 @@ import java.util.Map;
         return lostArkApiService.getCharacterInfoList(id);
     }
 
-    @PostMapping("/characters") // 인풋창에서 등록 눌리면 데이터 db에 등록되는 api
+    @PostMapping("/characters") // 인풋창에서 등록 눌리면 데이터 db에 등록되는 api / 테스트커밋
     public List<CharacterInfoDto> updateCharacterInfo(@RequestBody CharacterRegisterDto requestData) {
         // 데이터 처리 후 응답
         return lostArkApiService.updateCharacterInfoList(requestData);
