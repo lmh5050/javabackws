@@ -33,7 +33,7 @@ public class UserService {
         // 비밀번호 암호화
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
-        // 사용자 정보 삽입
+        // 사용자 정보 삽입 /테스트용 애드
         userRepository.insertUser(user);
 
         return user;
