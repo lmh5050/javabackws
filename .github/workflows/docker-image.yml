@@ -35,4 +35,4 @@ jobs:
     # 5. Jenkins 빌드 트리거
     - name: Trigger Jenkins build
       run: |
-        curl -X POST http://http://34.47.90.90:8080/job/jenkinsPipelineForBackEnd/build --user ${{ secrets.JENKINS_USERNAME }}:${{ secrets.JENKINS_API_TOKEN }}
+        curl -X POST http://34.47.90.90:8080/job/jenkinsPipelineForBackEnd/build --user ${{ secrets.JENKINS_USERNAME }}:${{ secrets.JENKINS_API_TOKEN }}
