@@ -18,7 +18,7 @@ jobs:
     # Docker 이미지 빌드
     - name: Build Docker image
       run: |
-        docker buildx build --platform=linux/amd64,linux/arm64 -t sebrinu/back-end-ws .
+       docker build -t sebrinu/back-end-ws .
 
     # Docker 로그인
     - name: Log in to Docker Hub
