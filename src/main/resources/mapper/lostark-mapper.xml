@@ -118,7 +118,7 @@
                COUNT(crd_detail.no) AS raid_current_member
         FROM public.character_raid AS chrd
                  JOIN public.raid AS rd
-                      ON chrd.raid_name = rd.raid_name
+                 ON chrd.raid_name = rd.raid_name
                  LEFT JOIN public.character_raid_detail AS crd_detail
                            ON CAST(chrd.no AS TEXT) = crd_detail.no
         where crd_detail.status::INTEGER != 2  -- varchar에서 integer로 형변환
