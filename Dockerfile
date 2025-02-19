@@ -1,11 +1,19 @@
-#자바 17 베이스 이미지
-FROM openjdk:17
+# 1. Gradle을 사용하여 애플리케이션 빌드하기 위한 빌드 단계
+FROM gradle:7.5.1-jdk17 AS build
 
-ARG JAR_FILE=build/libs/*.jar
-#이미지 생성할 때 파일을 복사한다. 위의 jar_file을 app.jar로 복사해서 이미지로 가져온다.
-COPY *.jar app.jar
+WORKDIR /app
 
-#컨테이너를 시작할 때 실행할 명령어.
-ENTRYPOINT ["java", "-jar", "app.jar"]
+# 프로젝트 소스 코드 복사
+COPY . .
 
-EXPOSE 8081
+# Gradle을 사용하여 Spring Boot JAR 파일 빌드
+RUN ./gradlew clean bootJar
+
+# 2. 실제 실행 단계 (JAR 파일을 실행하기 위한 단계)
+FROM openjdk:17-jdk-slim
+
+# 빌드 단계에서 생성된 JAR 파일을 실행 단계로 복사
+COPY --from=build /app/build/libs/*.jar /app/app.jar
+
+# Spring Boot 애플리케이션 실행
+ENTRYPOINT ["java", "-jar", "/app/app.jar"]
