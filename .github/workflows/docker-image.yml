@@ -7,18 +7,22 @@ on:
     branches: [ "master" ]
 
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v4
+
+    # 2. Spring Boot 애플리케이션 빌드
+    - name: Build with Gradle
+      uses: gradle/gradle-build-action@main
+      with: 
+        arguments: clean bootJar
     
     # Docker 이미지 빌드
     - name: Build Docker image
       run: |
-       docker build -t sebrinu/back-end-ws .
+        docker build -t sebrinu/back-end-ws .
 
     # Docker 로그인
     - name: Log in to Docker Hub
