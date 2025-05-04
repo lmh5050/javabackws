@@ -16,7 +16,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 
-@Service
+@Service //테스트
 public class LostArkScheduleService {
 
     private final WebClient webClient;
